@@ -158,3 +158,4 @@ Contendo:
 Atualizações em https://github.com/flashbsb/Backbone-Network-Topology-Generator
 
 ## MIT License
+https://raw.githubusercontent.com/flashbsb/Backbone-Network-Topology-Generator/refs/heads/main/LICENSE
