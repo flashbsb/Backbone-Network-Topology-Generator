@@ -155,10 +155,4 @@ Contendo:
 
 Atualizações em https://github.com/flashbsb/Backbone-Network-Topology-Generator
 
-## Licença
-
-	Este projeto é disponibilizado sob uma Licença de Uso Livre com Atribuição e Autorização Comercial.
-	
-	Você pode utilizar, modificar e distribuir este código para fins não comerciais desde que mantenha os créditos.  
-	Para qualquer uso comercial, é necessária autorização prévia do autor.  
-	Veja o arquivo LICENSE.txt para mais detalhes.
+## MIT License
