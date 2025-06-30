@@ -1,0 +1,123 @@
+{
+    "PROPORCAO_CAMADAS": {
+        "RTIC": 0.02,
+        "RTRR": 0.03,
+        "RTPR": 0.03,
+        "RTED": 0.12,
+        "SWAC": 0.80
+    },
+    "PROPORCOES_REGIAO": {
+        "Norte": 0.083,
+        "Nordeste": 0.289,
+        "Centro-Oeste": 0.076,
+        "Sudeste": 0.432,
+        "Sul": 0.120
+    },
+    "REGIOES_HIERARQUIA": {
+        "Norte": {
+            "hubs": ["Manaus", "Belém"],
+            "sub-regioes": {
+                "Norte1": ["AM", "RR", "AP"],
+                "Norte2": ["PA", "TO", "RO", "AC"]
+            }
+        },
+        "Nordeste": {
+            "hubs": ["Fortaleza", "Recife", "Salvador"],
+            "sub-regioes": {
+                "Nordeste1": ["CE", "PI", "MA"],
+                "Nordeste2": ["RN", "PB", "PE"],
+                "Nordeste3": ["AL", "SE", "BA"]
+            }
+        },
+        "Centro-Oeste": {
+            "hubs": ["Brasília", "Cuiabá"],
+            "sub-regioes": {
+                "CentroOeste1": ["DF", "GO"],
+                "CentroOeste2": ["MT", "MS"]
+            }
+        },
+        "Sudeste": {
+            "hubs": ["São Paulo", "Rio de Janeiro"],
+            "sub-regioes": {
+                "Sudeste1": ["SP"],
+                "Sudeste2": ["RJ", "ES"],
+                "Sudeste3": ["MG"]
+            }
+        },
+        "Sul": {
+            "hubs": ["Curitiba", "Porto Alegre"],
+            "sub-regioes": {
+                "Sul1": ["PR"],
+                "Sul2": ["SC", "RS"]
+            }
+        }
+    },
+    "ABREVIACOES": {
+        "RTIC": "IC",
+        "RTRR": "RR",
+        "RTPR": "PR",
+        "RTED": "ED",
+        "SWAC": "AC"
+    },
+    "REGIOES": {
+        "Norte": ["AC", "AM", "AP", "PA", "RO", "RR", "TO"],
+        "Nordeste": ["AL", "BA", "CE", "MA", "PB", "PE", "PI", "RN", "SE"],
+        "Centro-Oeste": ["DF", "GO", "MT", "MS"],
+        "Sudeste": ["ES", "MG", "RJ", "SP"],
+        "Sul": ["PR", "RS", "SC"]
+    },
+    "PTTS": [
+        ["Aracaju", "SE", -10.947246, -37.073082],
+        ["Belém", "PA", -1.455754, -48.490246],
+        ["Belo Horizonte", "MG", -19.916681, -43.934493],
+        ["Brasília", "DF", -15.797452, -47.891808],
+        ["Campinas", "SP", -22.905560, -47.060833],
+        ["Campo Grande", "MS", -20.469710, -54.620121],
+        ["Cuiabá", "MT", -15.601411, -56.097889],
+        ["Curitiba", "PR", -25.428954, -49.267137],
+        ["Florianópolis", "SC", -27.594869, -48.548222],
+        ["Fortaleza", "CE", -3.731862, -38.526669],
+        ["Goiânia", "GO", -16.680882, -49.253269],
+        ["João Pessoa", "PB", -7.119496, -34.845012],
+        ["Maceió", "AL", -9.649049, -35.708949],
+        ["Manaus", "AM", -3.119027, -60.021731],
+        ["Natal", "RN", -5.779257, -35.200916],
+        ["Porto Alegre", "RS", -30.034647, -51.217658],
+        ["Recife", "PE", -8.057838, -34.882896],
+        ["Rio de Janeiro", "RJ", -22.911013, -43.209372],
+        ["Salvador", "BA", -12.972218, -38.501408],
+        ["São Luís", "MA", -2.530731, -44.306823],
+        ["São Paulo", "SP", -23.533773, -46.625290],
+        ["Teresina", "PI", -5.092010, -42.803760],
+        ["Vitória", "ES", -20.319441, -40.337306]
+    ],
+    "CIDADES_UF": {
+        "AC": [["Rio Branco", -9.97472, -67.81], ["Cruzeiro do Sul", -7.63, -72.67], ["Sena Madureira", -9.07, -68.67]],
+        "AL": [["Maceió", -9.66599, -35.735], ["Arapiraca", -9.75, -36.66], ["Rio Largo", -9.48, -35.85]],
+        "AM": [["Manaus", -3.1, -60.0], ["Parintins", -2.63, -56.73], ["Itacoatiara", -3.14, -58.44]],
+        "AP": [["Macapá", 0.033, -51.065], ["Santana", -0.035, -51.18], ["Laranjal do Jari", -0.85, -52.52]],
+        "BA": [["Salvador", -12.97, -38.5], ["Feira de Santana", -12.25, -38.95], ["Vitória da Conquista", -14.87, -40.84]],
+        "CE": [["Fortaleza", -3.72, -38.54], ["Caucaia", -3.73, -38.66], ["Juazeiro do Norte", -7.21, -39.32]],
+        "DF": [["Brasília", -15.78, -47.93]],
+        "ES": [["Vitória", -20.32, -40.34], ["Vila Velha", -20.34, -40.29], ["Cariacica", -20.26, -40.42]],
+        "GO": [["Goiânia", -16.67, -49.25], ["Aparecida de Goiânia", -16.82, -49.25], ["Anápolis", -16.33, -48.95]],
+        "MA": [["São Luís", -2.53, -44.3], ["Imperatriz", -5.53, -47.48], ["Timon", -5.09, -42.83]],
+        "MG": [["Belo Horizonte", -19.92, -43.94], ["Uberlândia", -18.92, -48.29], ["Contagem", -19.93, -44.05]],
+        "MS": [["Campo Grande", -20.44, -54.65], ["Dourados", -22.22, -54.81], ["Três Lagoas", -20.75, -51.68]],
+        "MT": [["Cuiabá", -15.6, -56.1], ["Várzea Grande", -15.65, -56.13], ["Rondonópolis", -16.47, -54.64]],
+        "PA": [["Belém", -1.46, -48.5], ["Ananindeua", -1.37, -48.37], ["Santarém", -2.43, -54.72]],
+        "PB": [["João Pessoa", -7.12, -34.88], ["Campina Grande", -7.23, -35.88], ["Santa Rita", -7.11, -34.98]],
+        "PE": [["Recife", -8.05, -34.9], ["Jaboatão dos Guararapes", -8.11, -35.02], ["Olinda", -8.01, -34.85]],
+        "PI": [["Teresina", -5.09, -42.8], ["Parnaíba", -2.9, -41.78], ["Picos", -7.08, -41.47]],
+        "PR": [["Curitiba", -25.42, -49.27], ["Londrina", -23.31, -51.16], ["Maringá", -23.42, -51.94]],
+        "RJ": [["Rio de Janeiro", -22.91, -43.2], ["São Gonçalo", -22.83, -43.05], ["Duque de Caxias", -22.79, -43.31]],
+        "RN": [["Natal", -5.78, -35.2], ["Mossoró", -5.19, -37.34], ["Parnamirim", -5.91, -35.27]],
+        "RO": [["Porto Velho", -8.76, -63.9], ["Ji-Paraná", -10.88, -61.95], ["Ariquemes", -9.91, -63.04]],
+        "RR": [["Boa Vista", 2.82, -60.67], ["Rorainópolis", 0.95, -60.43], ["Caracaraí", 1.82, -61.13]],
+        "RS": [["Porto Alegre", -30.03, -51.23], ["Caxias do Sul", -29.17, -51.18], ["Canoas", -29.92, -51.18]],
+        "SC": [["Joinville", -26.3, -48.85], ["Florianópolis", -27.59, -48.55], ["Blumenau", -26.92, -49.07]],
+        "SE": [["Aracaju", -10.91, -37.07], ["Nossa Senhora do Socorro", -10.92, -37.12], ["Lagarto", -10.92, -37.65]],
+        "SP": [["São Paulo", -23.55, -46.63], ["Guarulhos", -23.45, -46.53], ["Campinas", -22.91, -47.06]],
+        "TO": [["Palmas", -10.24, -48.36], ["Araguaína", -7.19, -48.21], ["Gurupi", -11.73, -49.07]]
+    }
+}
