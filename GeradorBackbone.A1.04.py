@@ -124,13 +124,6 @@ Ferramenta para geração automatizada para laboratórios de elementos e conexõ
   - conexoes.csv: Interconexões entre os equipamentos
   - localidades.csv: Dados geográficos dos sites (coordenadas e regiões)
 
-🚫 O QUE ESTE SCRIPT NÃO É:
---------------------------
-  • Gerador de diagramas visuais (.drawio) » Use GeradorTopologias para isso
-  • Simulador de tráfego ou desempenho
-  • Ferramenta de planejamento de capacidade (bandwidth/links)
-  • Validador de configurações de equipamentos
-  • Gerador de políticas de segurança ou QoS
 
 ⭐ LÓGICA DE CONSTRUÇÃO DA TOPOLOGIA:
 -----------------------------------
@@ -138,9 +131,10 @@ A topologia segue um modelo hierárquico de 5 camadas, com regras específicas d
 
 1. DISTRIBUIÇÃO GEOGRÁFICA:
    • Baseada em cidades reais do Brasil (priorizando capitais e PTTs)
-   • Proporção regional conforme dados do IBGE (população 2023):
+   • Proporção regional:
         Norte: 8.3%    | Nordeste: 28.9%
         Centro-Oeste: 7.6% | Sudeste: 43.2% | Sul: 12.0%
+        • Alterar proporção em config.json
    • Hierarquia regional com hubs estratégicos por macro-região
 
 2. PROPORÇÃO DE EQUIPAMENTOS POR CAMADA:
@@ -149,6 +143,7 @@ A topologia segue um modelo hierárquico de 5 camadas, com regras específicas d
    • RTPR (PEERING): 3%       » Roteadores de peering
    • RTED (EDGE): 12%         » Roteadores de borda
    • SWAC (METRO): 80%        » Switches de acesso
+   • Alterar proporção em config.json
 
 3. REGRAS DE CONECTIVIDADE:
    • RTICs: Formam anéis regionais + anel nacional principal
@@ -157,6 +152,19 @@ A topologia segue um modelo hierárquico de 5 camadas, com regras específicas d
    • RTEDs: Operam em pares (mesma região) + conexões redundantes
    • SWACs: Organizados em anéis locais conectados a pares de RTEDs
 
+📦 INSTALAÇÃO DE DEPENDÊNCIAS:
+----------------------------
+
+    # Windows
+    Instalar Python 3 (Microsof Store):
+      a. abra Microsoft Store no menu iniciar.
+      b. pesquise "Python 3", escolher versão superior
+      c. selecionar instalar.
+
+	# Linux Debian:
+    Instalar Python 3 (ou superior)
+		apt update & apt install python3
+    
 🚀 COMO USAR:
 ------------
 Formato básico:
@@ -164,10 +172,10 @@ Formato básico:
 
 Exemplos:
   1. Topologia padrão (300 elementos):
-     python GeradorBackbone.{VERSION}.py
+     python GeradorBackbone.py
   
   2. Topologia personalizada (500 elementos):
-     python GeradorBackbone.{VERSION}.py -e 500
+     python GeradorBackbone.py -e 500
 
 ⚙️ ARGUMENTOS:
 --------------
@@ -237,9 +245,17 @@ Contendo:
   • Não considera topografia física (rios/montanhas)
   • Não modela diferenças de capacidade entre enlaces
 
+🚫 O QUE ESTE SCRIPT NÃO É:
+--------------------------
+  • Gerador de diagramas visuais (.drawio) » Use GeradorTopologias para isso
+  • Simulador de tráfego ou desempenho
+  • Ferramenta de planejamento de capacidade (bandwidth/links)
+  • Validador de configurações de equipamentos
+  • Gerador de políticas de segurança ou QoS
+
 📌 EXEMPLO DE EXECUÇÃO:
 ----------------------
-  python GeradorBackbone.{VERSION}.py -e 400 -c meu_config.json
+  python GeradorBackbone.py -e 400 -c meu_config.json
 
   Saída:
     Pasta: TOPOLOGIA_400_20231025153045/
@@ -254,7 +270,10 @@ Contendo:
   • Para grandes topologias (>800 nós), ajuste os parâmetros de layout no config.json do script GeradorTopologias
   • Use localidades.csv como referência para mapas personalizados
 
-https://github.com/flashbsb/Backbone-Network-Topology-Generator
+Atualizações em https://github.com/flashbsb/Backbone-Network-Topology-Generator
+
+## MIT License
+https://raw.githubusercontent.com/flashbsb/Backbone-Network-Topology-Generator/refs/heads/main/LICENSE
 """
     # Cria o parser com a descrição completa
     parser = argparse.ArgumentParser(
