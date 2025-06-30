@@ -1,4 +1,4 @@
-GERADOR PARA LABORATÓRIOS DE ELEMENTOS E CONEXÕES DE REDE PARA BACKBONE NACIONAL {VERSION}
+GERADOR PARA LABORATÓRIOS DE ELEMENTOS E CONEXÕES DE REDE PARA BACKBONE NACIONAL 
 ====================================================
 
 VISÃO GERAL:
@@ -9,13 +9,6 @@ Ferramenta para geração automatizada para laboratórios de elementos e conexõ
   - conexoes.csv: Interconexões entre os equipamentos
   - localidades.csv: Dados geográficos dos sites (coordenadas e regiões)
 
-🚫 O QUE ESTE SCRIPT NÃO É:
---------------------------
-  • Gerador de diagramas visuais (.drawio) » Use GeradorTopologias para isso
-  • Simulador de tráfego ou desempenho
-  • Ferramenta de planejamento de capacidade (bandwidth/links)
-  • Validador de configurações de equipamentos
-  • Gerador de políticas de segurança ou QoS
 
 ⭐ LÓGICA DE CONSTRUÇÃO DA TOPOLOGIA:
 -----------------------------------
@@ -42,6 +35,19 @@ A topologia segue um modelo hierárquico de 5 camadas, com regras específicas d
    • RTEDs: Operam em pares (mesma região) + conexões redundantes
    • SWACs: Organizados em anéis locais conectados a pares de RTEDs
 
+📦 INSTALAÇÃO DE DEPENDÊNCIAS:
+----------------------------
+
+    # Windows
+    Instalar Python 3 (Microsof Store):
+      a. abra Microsoft Store no menu iniciar.
+      b. pesquise "Python 3", escolher versão superior
+      c. selecionar instalar.
+
+	# Linux Debian:
+    Instalar Python 3 (ou superior)
+		apt update & apt install python3
+    
 🚀 COMO USAR:
 ------------
 Formato básico:
@@ -49,10 +55,10 @@ Formato básico:
 
 Exemplos:
   1. Topologia padrão (300 elementos):
-     python GeradorBackbone.{VERSION}.py
+     python GeradorBackbone.py
   
   2. Topologia personalizada (500 elementos):
-     python GeradorBackbone.{VERSION}.py -e 500
+     python GeradorBackbone.py -e 500
 
 ⚙️ ARGUMENTOS:
 --------------
@@ -122,9 +128,17 @@ Contendo:
   • Não considera topografia física (rios/montanhas)
   • Não modela diferenças de capacidade entre enlaces
 
+🚫 O QUE ESTE SCRIPT NÃO É:
+--------------------------
+  • Gerador de diagramas visuais (.drawio) » Use GeradorTopologias para isso
+  • Simulador de tráfego ou desempenho
+  • Ferramenta de planejamento de capacidade (bandwidth/links)
+  • Validador de configurações de equipamentos
+  • Gerador de políticas de segurança ou QoS
+
 📌 EXEMPLO DE EXECUÇÃO:
 ----------------------
-  python GeradorBackbone.{VERSION}.py -e 400 -c meu_config.json
+  python GeradorBackbone.py -e 400 -c meu_config.json
 
   Saída:
     Pasta: TOPOLOGIA_400_20231025153045/
