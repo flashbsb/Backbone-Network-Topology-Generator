@@ -16,9 +16,10 @@ A topologia segue um modelo hierárquico de 5 camadas, com regras específicas d
 
 1. DISTRIBUIÇÃO GEOGRÁFICA:
    • Baseada em cidades reais do Brasil (priorizando capitais e PTTs)
-   • Proporção regional conforme dados do IBGE (população 2023):
+   • Proporção regional:
         Norte: 8.3%    | Nordeste: 28.9%
         Centro-Oeste: 7.6% | Sudeste: 43.2% | Sul: 12.0%
+        Alterar proporção em config.json
    • Hierarquia regional com hubs estratégicos por macro-região
 
 2. PROPORÇÃO DE EQUIPAMENTOS POR CAMADA:
@@ -27,6 +28,7 @@ A topologia segue um modelo hierárquico de 5 camadas, com regras específicas d
    • RTPR (PEERING): 3%       » Roteadores de peering
    • RTED (EDGE): 12%         » Roteadores de borda
    • SWAC (METRO): 80%        » Switches de acesso
+   Alterar proporção em config.json
 
 3. REGRAS DE CONECTIVIDADE:
    • RTICs: Formam anéis regionais + anel nacional principal
