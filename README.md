@@ -101,12 +101,6 @@ graph TD
     SWAC1 -->|Anel Metropolitano| SWAC2
 ```
 
-## ⚠️ Limitações Conhecidas
-1. Quantidade mínima de 30 elementos
-2. Não considera topografia física (rios/montanhas)
-3. Capacidade de enlace não modelada
-4. Máximo recomendado: 1000 elementos
-
 ## 🛠️ O Que Este Projeto Não É
 - Gerador visual de diagramas (.drawio), use [GeradorTopologias](https://github.com/flashbsb/Network-Topology-Generator-for-Drawio) para isto
 - Simulador de desempenho de rede
@@ -325,7 +319,6 @@ for i in range(n):
 ```
 elemento;camada;nivel;siteid
 RTIC-SP001;INNER-CORE;1;SPSAO0IC001
-SWAC-RJ042;METRO;8;RJRIO0AC042
 ```
 
 **Arquivo `localidades.csv`**:
@@ -337,14 +330,12 @@ SPSAO0IC001;SaoPaulo;Sudeste;23.33.00S;46.37.00W
 **Arquivo `conexoes.csv`**:
 ```
 ponta-a;ponta-b;textoconexao;strokeWidth;strokeColor;dashed;fontStyle;fontSize
-RTIC-MAN01-01;RTIC-BEL02-01;Core Ring Norte;;;;;
-RTIC-BEL02-01;RTIC-MAN01-01;Core Ring Norte;;;;;
-RTIC-FOR03-01;RTIC-REC04-01;Core Ring Nordeste;;;;;
+RTIC-SP001;RTIC-SP002;Core Ring Sudeste;;;;;
 ```
 
 ---
 
-#### **5. Limitações**
+#### **5.  ⚠️ Limitações Conhecidas
 - **Escala**: Máximo recomendado de 1.000 elementos
 - **Geolocalização**:
   - Não considera topografia (rios, montanhas)
@@ -353,10 +344,6 @@ RTIC-FOR03-01;RTIC-REC04-01;Core Ring Nordeste;;;;;
   - Cidades sem PTTs podem ter menos conexões redundantes
 
 ---
-
-#### **6. Dependências**
-- **Bibliotecas**: `argparse`, `json`, `csv`, `unicodedata`, `math`
-- **Python**: Versão 3.6 ou superior
 
 ### Conclusão
 O script gera topologias de rede realistas para o Brasil, combinando:
