@@ -155,7 +155,165 @@ Contendo:
   • Para grandes topologias (>800 nós), ajuste os parâmetros de layout no config.json do script GeradorTopologias
   • Use localidades.csv como referência para mapas personalizados
 
-Atualizações em https://github.com/flashbsb/Backbone-Network-Topology-Generator
+## Atualizações em https://github.com/flashbsb/Backbone-Network-Topology-Generator
+
+## Fluxo do Programa
+
+```mermaid
+flowchart TD
+    A([Início]) --> B[Ler Argumentos: -e, -c]
+    B --> C{Arquivo config.json válido?}
+    C -->|Sim| D[Carregar configurações]
+    C -->|Não| E[ERRO: Finalizar script]
+    D --> F[Calcular distribuição por camada]
+    F --> G[Gerar elementos PTT]
+    G --> H[Preparar lista de cidades]
+    H --> I[Distribuir elementos por região]
+    
+    subgraph Distribuição por Camada
+        I --> J[Gerar RTICs]
+        I --> K[Gerar RTRRs]
+        I --> L[Gerar RTPRs]
+        I --> M[Gerar RTEDs em pares]
+        I --> N[Gerar SWACs]
+    end
+    
+    J --> O[Conexões RTICs]
+    K --> P[Conexões RTRRs]
+    L --> Q[Conexões RTPRs]
+    M --> R[Conexões RTEDs]
+    N --> S[Conexões SWACs]
+    
+    subgraph Gerar Conexões
+        O -->|Anéis regionais| T
+        O -->|Backbone nacional| T
+        O -->|Redundância| T
+        P -->|Para 2 RTICs| T
+        Q -->|Para 2 RTICs| T
+        R -->|Entre pares e RTICs| T
+        S -->|Anéis metropolitanos| T
+    end
+    
+    T[Gerar arquivos de saída] --> U[elementos.csv]
+    T --> V[conexoes.csv]
+    T --> W[localidades.csv]
+    T --> X[resumo.txt]
+    U --> Y[Pasta timestamp]
+    V --> Y
+    W --> Y
+    X --> Y
+    Y --> Z([Fim])
+    
+    style A fill:#2ecc71,stroke:#27ae60
+    style E fill:#e74c3c,stroke:#c0392b
+    style Z fill:#2ecc71,stroke:#27ae60
+    style F fill:#3498db,stroke:#2980b9
+    style G fill:#3498db,stroke:#2980b9
+    style T fill:#9b59b6,stroke:#8e44ad
+```
+### **Passo a Passo Explicado**
+
+#### **1. Inicialização e Configuração**
+- **Argumentos de Linha de Comando**:
+  - Recebe `-e` (quantidade de elementos) e `-c` (caminho do arquivo de configuração `config.json`).
+  - Valida quantidade mínima de elementos (≥100).
+- **Carregamento do Config**:
+  - Lê `config.json` e normaliza estruturas de dados (listas → tuplas).
+  - Extrai proporções de camadas, regiões geográficas, hierarquias, abreviações, PTTs e cidades.
+
+#### **2. Pré-processamento de Dados**
+- **Lista de Cidades**:
+  - Compila todas as cidades por UF (incluindo PTTs).
+  - Agrupa cidades por região geográfica (Norte, Nordeste, etc.).
+- **Distribuição Proporcional**:
+  - Calcula quantidades de elementos por camada (RTIC, RTRR, RTPR, RTED, SWAC) baseado nas proporções do `config.json`.
+  - Ajusta arredondamentos para garantir total exato de elementos.
+  - Garante número par de RTEDs (failover ativo-ativo).
+
+#### **3. Geração de Elementos de Rede**
+##### **a) Camada RTIC (Inner-Core)**
+- **Priorização**: Hubs regionais definidos em `REGIOES_HIERARQUIA` (ex: São Paulo, Brasília).
+- **Distribuição**:
+  - 1 RTIC por hub obrigatório.
+  - RTICs extras alocados em cidades com PTTs.
+  - Balanceamento regional conforme `PROPORCOES_REGIAO`.
+
+##### **b) Camada RTRR (Reflector)**
+- **Priorização**: Sub-regiões definidas em `REGIOES_HIERARQUIA` (ex: Norte1, Sudeste2).
+- **Distribuição**:
+  - 1 RTRR por sub-região obrigatória.
+  - RTRRs extras em cidades com PTTs.
+
+##### **c) Camada RTPR (Peering)**
+- **Priorização**: Cidades com PTTs (infraestrutura de IXPs).
+- **Distribuição**: Proporcional à quantidade de elementos por região.
+
+##### **d) Camada RTED (Edge)**
+- **Formação de Pares**:
+  - Cada par é composto por 2 RTEDs geograficamente próximos.
+  - Distância calculada via `distancia_geografica()`.
+- **Distribuição**: Proporcional por região.
+
+##### **e) Camada SWAC (Metro)**
+- **Organização**: Em anéis metropolitanos.
+- **Distribuição**: Aleatória por região, respeitando proporções.
+
+#### **4. Geração de Conexões**
+##### **a) Conexões RTIC**
+- **Anéis Regionais**: RTICs de uma mesma região conectados em anel.
+- **Backbone Nacional**: Hubs principais de todas as regiões conectados em anel.
+- **Redundância Inter-regiões**: Conexões extras entre RTICs de regiões vizinhas.
+
+##### **b) Conexões RTRR → RTIC**
+- Cada RTRR conectado a 2 RTICs da mesma região (ou mais próximos).
+
+##### **c) Conexões RTPR → RTIC**
+- Cada RTPR conectado aos 2 RTICs mais próximos.
+
+##### **d) Conexões RTED**
+- **Par RTED-RTED**: Conexão direta entre elementos do par.
+- **RTED → RTIC**: Cada RTED conectado a um RTIC diferente.
+
+##### **e) Conexões SWAC**
+- **Anéis Metropolitanos**: SWACs de uma mesma cidade conectados em anel.
+- **SWAC → RTED**: Extremidades do anel conectadas a um par de RTEDs próximo.
+
+#### **5. Saída de Arquivos**
+- **CSVs Gerados**:
+  1. `elementos.csv`: Lista de equipamentos (siteid, camada, tipo, etc.).
+  2. `conexoes.csv`: Interconexões entre equipamentos (ponta-a, ponta-b, tipo).
+  3. `localidades.csv`: Dados geográficos (coordenadas em DMS).
+- **Resumo Estatístico** (`resumo.txt`):
+  - Distribuição de elementos por camada/região.
+  - Quantidade de conexões por tipo.
+  - Estados com maior presença.
+- **Pasta de Saída**: Nomeada como `TOPOLOGIA_[QTD]_[TIMESTAMP]`.
+
+#### **6. Tratamentos Especiais**
+- **Normalização de Dados**:
+  - Remoção de acentos e caracteres especiais nos CSVs.
+  - Conversão de coordenadas decimais para DMS.
+- **Balanceamento**:
+  - Correção automática de diferenças por arredondamento.
+  - Garantia de redundância (mínimo 2 RTICs por região).
+
+---
+
+### **Lógica Chave**
+- **Hierarquia de 5 Camadas**:
+  - RTIC (núcleo) → RTRR (refletores) → RTPR (peering) → RTED (borda) → SWAC (acesso).
+- **Distribuição Geográfica**:
+  - Baseada em cidades reais do Brasil (priorizando capitais e PTTs).
+  - Proporções regionais ajustáveis via `config.json`.
+- **Conectividade Redundante**:
+  - Anéis (RTICs, SWACs), pares (RTEDs) e links redundantes (RTRR-RTIC, RTPR-RTIC).
+
+### **Limitações**
+- Quantidade mínima: **100 elementos**.
+- Não considera topografia física (rios, montanhas).
+- Não modela capacidade de enlaces.
+
+Este fluxo garante a geração de topologias realistas, balanceadas e prontas para uso em ferramentas como o `GeradorTopologias` para visualização em `.drawio`.
 
 ## MIT License
 https://raw.githubusercontent.com/flashbsb/Backbone-Network-Topology-Generator/refs/heads/main/LICENSE
