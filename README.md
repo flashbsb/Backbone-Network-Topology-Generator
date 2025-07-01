@@ -12,7 +12,7 @@ Gera três arquivos essenciais para modelagem de redes:
 - `conexoes.csv`: Interconexões entre dispositivos
 - `localidades.csv`: Dados geográficos (coordenadas em DMS)
 
-## ⚙️ Instalação Rápida das dependências para execução do script
+## ⚙️ Instalação das dependências para execução do script
 
 ```bash
 # Windows (via Microsoft Store)
@@ -46,32 +46,6 @@ python GeradorBackbone.py
 python GeradorBackbone.py -e 500 -c meu_config.json
 ```
 
-## 📂 Estrutura de Arquivos
-
-### Arquivo de Configuração (`config.json`)
-```json
-{
-  "PROPORCAO_CAMADAS": {
-    "RTIC": 0.02,
-    "RTRR": 0.03,
-    "RTPR": 0.03,
-    "RTED": 0.12,
-    "SWAC": 0.80
-  },
-  "PROPORCOES_REGIAO": {
-    "Norte": 0.083,
-    "Nordeste": 0.289,
-    "Centro-Oeste": 0.076,
-    "Sudeste": 0.432,
-    "Sul": 0.120
-  },
-  "PTTS": [
-    ["São Paulo", "SP", -23.533773, -46.625290],
-    ["Rio de Janeiro", "RJ", -22.911013, -43.209372]
-  ]
-}
-```
-
 ### Saída Gerada
 Pasta no formato `TOPOLOGIA_[QTD]_[TIMESTAMP]` contendo:
 ```
@@ -82,7 +56,8 @@ Pasta no formato `TOPOLOGIA_[QTD]_[TIMESTAMP]` contendo:
 └── 📄 resumo.txt       # Estatísticas da topologia
 ```
 
-## 🏗️ Arquitetura da Topologia
+## 🏗️ Proporção da distribuição dos elementos
+(ajuste config.json conforme sua necessidade)
 
 ### Hierarquia de 5 Camadas
 | Camada         | Elemento | Proporção | Função Principal               |
@@ -93,6 +68,25 @@ Pasta no formato `TOPOLOGIA_[QTD]_[TIMESTAMP]` contendo:
 | Edge           | RTED     | 12%       | Borda de rede                  |
 | Metro          | SWAC     | 80%       | Acesso metropolitanos          |
 
+
+### Regiões Geográficas
+| Região         | Proporção 
+|----------------|-----------
+| Sudeste        | 43,2%
+| Nordeste       | 28,9%
+| Sul            | 12%
+| Norte          | 8,3%
+| Centro-Oeste   | 7.6%
+
+## 📂 Arquivo de Configuração (`config.json`)
+
+- PROPORCAO_CAMADAS
+- PROPORCOES_REGIAO
+- REGIOES_HIERARQUIA
+- ABREVIACOES
+- REGIOES
+- CIDADES_UF
+  
 ### Princípios de Conectividade
 ```mermaid
 graph TD
@@ -114,7 +108,7 @@ graph TD
 4. Máximo recomendado: 1000 elementos
 
 ## 🛠️ O Que Este Projeto Não É
-- Gerador visual de diagramas (.drawio)
+- Gerador visual de diagramas (.drawio), use [GeradorTopologias](https://github.com/flashbsb/Network-Topology-Generator-for-Drawio) para isto
 - Simulador de desempenho de rede
 - Ferramenta de planejamento de capacidade
 - Validador de configurações de equipamentos
@@ -146,7 +140,7 @@ Centro-Oeste: 22 (7.3%)
 ## 📌 Dicas Práticas
 1. Combine com [GeradorTopologias](https://github.com/flashbsb/Network-Topology-Generator-for-Drawio) para visualização
 2. Para >800 elementos, ajuste parâmetros de layout
-3. Use `localidades.csv` para integração com mapas
+3. Use `elementos,csv` e `localidades.csv` para relacionar elemento e localidades para integração com mapas
 
 ## Fluxo do Programa
 
