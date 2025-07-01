@@ -96,7 +96,7 @@ flowchart TD
 #### **1. Inicialização e Configuração**
 - **Argumentos de Linha de Comando**:
   - Recebe `-e` (quantidade de elementos) e `-c` (caminho do arquivo de configuração `config.json`).
-  - Valida quantidade mínima de elementos (≥100).
+  - Valida quantidade mínima de elementos (≥30).
 - **Carregamento do Config**:
   - Lê `config.json` e normaliza estruturas de dados (listas → tuplas).
   - Extrai proporções de camadas, regiões geográficas, hierarquias, abreviações, PTTs e cidades.
@@ -189,7 +189,7 @@ flowchart TD
   - Anéis (RTICs, SWACs), pares (RTEDs) e links redundantes (RTRR-RTIC, RTPR-RTIC).
 
 ### **Limitações**
-- Quantidade mínima: **100 elementos**.
+- Quantidade mínima: **30 elementos**.
 - Não considera topografia física (rios, montanhas).
 - Não modela capacidade de enlaces.
 
@@ -223,7 +223,7 @@ Exemplos:
 
 ⚙️ ARGUMENTOS:
 --------------
-  -e  Quantidade total de elementos (mínimo: 100, máximo recomendado: 1000)
+  -e  Quantidade total de elementos (mínimo: 30, máximo recomendado: 1000)
   -c  Caminho para o arquivo de configuração (padrão: config.json)
 
 📂 SAÍDA GERADA:
@@ -283,7 +283,7 @@ Contendo:
 
 ⚠️ LIMITAÇÕES:
 -------------
-  • Quantidade mínima: 100 elementos
+  • Quantidade mínima: 30 elementos
   • Máximo recomendado: 1,000 elementos (limite do Draw.io)
   • Cidades sem PTTs podem ter menor redundância
   • Não considera topografia física (rios/montanhas)
