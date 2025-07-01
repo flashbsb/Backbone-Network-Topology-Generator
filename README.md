@@ -140,7 +140,7 @@ Centro-Oeste: 22 (7.3%)
 ## 📌 Dicas Práticas
 1. Combine com [GeradorTopologias](https://github.com/flashbsb/Network-Topology-Generator-for-Drawio) para visualização
 2. Para >800 elementos, ajuste parâmetros de layout
-3. Use `elementos,csv` e `localidades.csv` para relacionar elemento e localidades para integração com mapas
+3. Use `elementos.csv` e `localidades.csv` para relacionar elemento e localidades para integração com mapas
 
 ## Fluxo do Programa
 
