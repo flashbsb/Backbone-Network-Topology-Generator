@@ -196,6 +196,175 @@ flowchart TD
     style G fill:#3498db,stroke:#2980b9
     style T fill:#9b59b6,stroke:#8e44ad
 ```
+### Análise do Script
+
+Este script gera topologias de rede hierárquicas para operadoras de telecomunicações brasileiras para laboratório, baseando-se em dados geográficos reais. Abaixo está a explicação detalhada de seu funcionamento:
+
+---
+
+#### **1. Estrutura Geral**
+- **Entrada**: 
+  - Arquivo de configuração `config.json` (dados geográficos, proporções, hierarquias)
+  - Parâmetros via linha de comando (`-e` para quantidade de elementos, `-c` para caminho do config)
+- **Saída**: 
+  - 3 arquivos CSV (`elementos.csv`, `conexoes.csv`, `localidades.csv`)
+  - Relatório `resumo.txt`
+  - Pasta nomeada `TOPOLOGIA_[QTD]_[TIMESTAMP]`
+
+---
+
+#### **2. Fluxo Principal**
+
+##### **a) Carregamento de Configuração**
+```python
+config = carregar_configuracao(args.c)
+```
+- Processa `config.json`:
+  - Converte coordenadas para tuplas
+  - Organiza cidades por UF
+  - Extrai proporções de camadas e regiões
+
+##### **b) Cálculo de Distribuição**
+```python
+dist_real = {
+    "RTIC": max(min_rtics, round(PROPORCAO_CAMADAS["RTIC"] * args.e)),
+    # [...] outras camadas
+}
+```
+- **Balanceamento proporcional**:
+  - Calcula quantidades por camada (RTIC, RTRR, etc.) baseado nas proporções do JSON
+  - Garante mínimos obrigatórios (ex: 2 RTICs por região)
+  - Ajusta diferenças de arredondamento
+  - Força quantidade par de RTEDs
+
+##### **c) Geração de Elementos**
+- **PTTs (Pontos de Troca de Tráfego)**:
+  - Priorizados com base na lista do JSON
+  - SiteID no formato `PTT_CIDADENORM` (ex: `PTT_SAO`)
+
+- **RTICs (Inner-Core)**:
+  - Alocados em hubs estratégicos (ex: São Paulo, Brasília)
+  - Distribuição regional proporcional à população
+  - SiteID no formato `[UF][CID][0IC001]` (ex: `SPSAO0IC001`)
+
+- **RTRRs (Reflector)**:
+  - 1 por sub-região (ex: `Nordeste1`)
+  - Priorizam cidades com PTTs
+  - Conectados a 2 RTICs
+
+- **RTPRs (Peering)**:
+  - Distribuídos regionalmente
+  - Priorizam cidades com PTTs
+  - Conectados a 2 RTICs mais próximos
+
+- **RTEDs (Edge)**:
+  - Gerados em **pares geograficamente próximos**
+  - Cada par conectado a 2 RTICs diferentes
+  - SiteID com sufixo `-01` e `-02` para cada elemento do par
+
+- **SWACs (Metro)**:
+  - 80% do total de elementos
+  - Agrupados por cidade para formar anéis metropolitanos
+
+##### **d) Geração de Conexões**
+```python
+# Exemplo: Anel regional de RTICs
+for i in range(n):
+    j = (i+1) % n
+    conexoes.append({"ponta-a": rtics_regiao[i], ...})
+```
+- **Hierarquia de Conexões**:
+  1. **RTICs**: Formam anéis regionais + anel nacional
+  2. **RTRRs**: Conectados a 2 RTICs da mesma região
+  3. **RTPRs**: Conectados a 2 RTICs mais próximos
+  4. **RTEDs**: 
+     - Conexão entre pares
+     - Cada elemento do par ligado a um RTIC diferente
+  5. **SWACs**: 
+     - Organizados em anéis metropolitanos
+     - Extremidades do anel ligadas a um par de RTEDs
+
+##### **e) Saída de Arquivos**
+- **CSVs Formatados**:
+  - `elementos.csv`: Lista equipamentos (camada, nível, siteid)
+  - `conexoes.csv`: Define interconexões (ponta-a, ponta-b, tipo)
+  - `localidades.csv`: Dados geográficos (coordenadas em DMS)
+- **Processamento de Dados**:
+  - Remove acentos e normaliza strings
+  - Converte coordenadas decimais para DMS (ex: `-23.55 → 23.33.00S`)
+
+---
+
+#### **3. Algoritmos-Chave**
+- **Distribuição Geográfica**:
+  ```python
+  cidades_por_regiao = defaultdict(list)
+  for cidade in todas_cidades:
+      regiao = obter_regiao(uf, REGIOES)
+      cidades_por_regiao[regiao].append(cidade)
+  ```
+  - Agrupa cidades por região usando dados do IBGE
+
+- **Seleção de Cidades**:
+  - Prioriza capitais e PTTs
+  - Usa distância geográfica para formar pares de RTEDs:
+    ```python
+    cidade_par = min(cidades, key=distancia_geografica)
+    ```
+
+- **Balanceamento Pós-Arredondamento**:
+  ```python
+  diff = args.e - sum(dist_real.values())
+  dist_real["SWAC"] += diff  # Ajusta na camada maior
+  ```
+
+---
+
+#### **4. Exemplo de Saída**
+**Arquivo `elementos.csv`**:
+```
+elemento;camada;nivel;siteid
+RTIC-SP001;INNER-CORE;1;SPSAO0IC001
+SWAC-RJ042;METRO;8;RJRIO0AC042
+```
+
+**Arquivo `localidades.csv`**:
+```
+siteid;Localidade;RegiaoGeografica;Latitude;Longitude
+SPSAO0IC001;SaoPaulo;Sudeste;23.33.00S;46.37.00W
+```
+
+**Arquivo `conexoes.csv`**:
+```
+ponta-a;ponta-b;textoconexao;strokeWidth;strokeColor;dashed;fontStyle;fontSize
+RTIC-MAN01-01;RTIC-BEL02-01;Core Ring Norte;;;;;
+RTIC-BEL02-01;RTIC-MAN01-01;Core Ring Norte;;;;;
+RTIC-FOR03-01;RTIC-REC04-01;Core Ring Nordeste;;;;;
+```
+
+---
+
+#### **5. Limitações**
+- **Escala**: Máximo recomendado de 1.000 elementos
+- **Geolocalização**:
+  - Não considera topografia (rios, montanhas)
+  - Distâncias aproximadas (não usa API de mapas)
+- **Redundância**:
+  - Cidades sem PTTs podem ter menos conexões redundantes
+
+---
+
+#### **6. Dependências**
+- **Bibliotecas**: `argparse`, `json`, `csv`, `unicodedata`, `math`
+- **Python**: Versão 3.6 ou superior
+
+### Conclusão
+O script gera topologias de rede realistas para o Brasil, combinando:
+1. **Dados geográficos reais** (cidades, coordenadas)
+2. **Hierarquia de rede** (5 camadas com regras de conexão)
+3. **Balanceamento proporcional** (regional e por camada)
+
+Ideal para simulações de infraestrutura de telecomunicações em cenários nacionais.
 
 🔗 **Repositório Oficial**:  
 https://github.com/flashbsb/Backbone-Network-Topology-Generator
