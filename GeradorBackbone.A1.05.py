@@ -179,7 +179,7 @@ Exemplos:
 
 ⚙️ ARGUMENTOS:
 --------------
-  -e  Quantidade total de elementos (mínimo: 100, máximo recomendado: 1000)
+  -e  Quantidade total de elementos (mínimo: 30, máximo recomendado: 1000)
   -c  Caminho para o arquivo de configuração (padrão: config.json)
 
 📂 SAÍDA GERADA:
@@ -239,7 +239,7 @@ Contendo:
 
 ⚠️ LIMITAÇÕES:
 -------------
-  • Quantidade mínima: 100 elementos
+  • Quantidade mínima: 30 elementos
   • Máximo recomendado: 1,000 elementos (limite do Draw.io)
   • Cidades sem PTTs podem ter menor redundância
   • Não considera topografia física (rios/montanhas)
@@ -298,8 +298,8 @@ https://raw.githubusercontent.com/flashbsb/Backbone-Network-Topology-Generator/r
     args = parser.parse_args()
 
 
-    if args.e < 100:
-        print("ERRO: Quantidade mínima de elementos é 100")
+    if args.e < 30:
+        print("ERRO: Quantidade mínima de elementos é 30")
         sys.exit(1)
     
     # 1. Carregar configuração
