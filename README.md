@@ -12,7 +12,7 @@ Gera três arquivos essenciais para modelagem de redes:
 - `conexoes.csv`: Interconexões entre dispositivos
 - `localidades.csv`: Dados geográficos (coordenadas em DMS)
 
-## ⚙️ Instalação Rápida
+## ⚙️ Instalação Rápida das dependências para execução do script
 
 ```bash
 # Windows (via Microsoft Store)
