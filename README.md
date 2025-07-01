@@ -21,14 +21,14 @@ Gera três arquivos essenciais para modelagem de redes:
 3. Clique em Instalar
 
 # Linux (Debian/Ubuntu)
-sudo apt update && sudo apt install python3
+sudo apt update && sudo apt install python3 -y
 ```
 
 ## 🚀 Como Usar
 
 **Comando básico:**
 ```bash
-python GeradorBackbone.A1.05.py -e 300
+python GeradorBackbone.py -e 300
 ```
 
 **Opções:**
@@ -40,10 +40,10 @@ python GeradorBackbone.A1.05.py -e 300
 **Exemplos:**
 ```bash
 # Topologia padrão (300 elementos)
-python GeradorBackbone.A1.05.py
+python GeradorBackbone.py
 
 # Topologia personalizada (500 elementos)
-python GeradorBackbone.A1.05.py -e 500 -c meu_config.json
+python GeradorBackbone.py -e 500 -c meu_config.json
 ```
 
 ## 📂 Estrutura de Arquivos
