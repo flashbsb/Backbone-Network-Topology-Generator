@@ -14,13 +14,13 @@ Gera três arquivos essenciais para modelagem de redes:
 
 ## ⚙️ Instalação das dependências para execução do script
 
-```bash
 # Windows (via Microsoft Store)
 1. Abra Microsoft Store
 2. Busque "Python 3.12+"
 3. Clique em Instalar
 
 # Linux (Debian/Ubuntu)
+```bash
 sudo apt update && sudo apt install python3 -y
 ```
 
@@ -101,12 +101,6 @@ graph TD
     SWAC1 -->|Anel Metropolitano| SWAC2
 ```
 
-## 🛠️ O Que Este Projeto Não É
-- Gerador visual de diagramas (.drawio), use [GeradorTopologias](https://github.com/flashbsb/Network-Topology-Generator-for-Drawio) para isto
-- Simulador de desempenho de rede
-- Ferramenta de planejamento de capacidade
-- Validador de configurações de equipamentos
-
 ## 📊 Exemplo de Saída (resumo.txt)
 ```
 RESUMO DA TOPOLOGIA GERADA
@@ -131,10 +125,16 @@ Norte: 25 (8.3%)
 Centro-Oeste: 22 (7.3%)
 ```
 
+## 🛠️ O Que Este Projeto Não É
+- Gerador visual de diagramas (.drawio), use [GeradorTopologias](https://github.com/flashbsb/Network-Topology-Generator-for-Drawio) para isto
+- Simulador de desempenho de rede
+- Ferramenta de planejamento de capacidade
+- Validador de configurações de equipamentos
+
 ## 📌 Dicas Práticas
 1. Combine com [GeradorTopologias](https://github.com/flashbsb/Network-Topology-Generator-for-Drawio) para visualização
 2. Para >800 elementos, ajuste parâmetros de layout
-3. Use `elementos.csv` e `localidades.csv` para relacionar elemento e localidades para integração com mapas
+3. Use `elementos.csv` e `localidades.csv` para relacionar elemento e sua localização para integração com mapas
 
 ## Fluxo do Programa
 
@@ -335,7 +335,7 @@ RTIC-SP001;RTIC-SP002;Core Ring Sudeste;;;;;
 
 ---
 
-#### **5.  ⚠️ Limitações Conhecidas
+#### 5.⚠️Limitações Conhecidas
 - **Escala**: Máximo recomendado de 1.000 elementos
 - **Geolocalização**:
   - Não considera topografia (rios, montanhas)
