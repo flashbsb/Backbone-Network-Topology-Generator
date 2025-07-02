@@ -17,7 +17,7 @@ import datetime
 import sys
 
 # Versão do script
-VERSION = "A1.05"  # Atualizada para refletir mudanças
+VERSION = "A1.06"  # Atualizada para refletir mudanças
 
 def carregar_configuracao(caminho_config):
     """Carrega as configurações de um arquivo JSON"""
@@ -113,7 +113,7 @@ def gerar_siteid_ptt(cidade):
 def main():
     
     help_text = f"""
-GERADOR PARA LABORATÓRIOS DE ELEMENTOS E CONEXÕES DE REDE PARA BACKBONE NACIONAL {VERSION}
+GERADOR DE ELEMENTOS E CONEXÕES DE REDE PARA BACKBONE NACIONAL PARA LABORATÓRIO {VERSION}
 ====================================================
 
 ⭐ VISÃO GERAL
@@ -168,11 +168,11 @@ Customize proporções e hierarquia editando:
 
 📂 SAÍDA GERADA
 ---------------
-Pasta: TOPOLOGIA_[QTD]_[TIMESTAMP]/
-├── elementos.csv    # Equipamentos (siteid, camada, nível)
-├── conexoes.csv     # Conexões (ponta-a, ponta-b, tipo)
-├── localidades.csv  # Coordenadas (DMS) e região
-└── resumo.txt       # Estatísticas da topologia
+	Pasta: TOPOLOGIA_[QTD]_[TIMESTAMP]/
+	├── elementos.csv    # Equipamentos (siteid, camada, nível)
+	├── conexoes.csv     # Conexões (ponta-a, ponta-b, tipo)
+	├── localidades.csv  # Coordenadas (DMS) e região
+	└── resumo.txt       # Estatísticas da topologia
 
 🏗️ HIERARQUIA DA REDE (5 Camadas)
 ---------------------------------
@@ -230,7 +230,7 @@ Edite config.json:
 
 💡 DICAS RÁPIDAS
 ----------------
-• Combine com GeradorTopologias para visualização .drawio, em:
+• Combine com GeradorTopologias para visualização com o .drawio, disponível em:
 	https://github.com/flashbsb/Network-Topology-Generator-for-Drawio
 • Use coordenadas reais em CIDADES_UF para precisão geográfica
 • Monitore resumo.txt para validar distribuição
