@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)
 
-Tool for automated generation of hierarchical nationwide backbone network topologies, producing laboratory-ready datasets for visualization in tools like Draw.io.
+Tool for automated generation of hierarchical backbone network topologies, producing laboratory-ready datasets for visualization in tools like Draw.io.
 
 ## 🔍 Overview
 
