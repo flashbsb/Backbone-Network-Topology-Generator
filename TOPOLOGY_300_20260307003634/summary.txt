@@ -1,0 +1,60 @@
+
+GENERATED TOPOLOGY SUMMARY
+==========================
+
+Generation date: 2026-03-07 00:36:34
+Total elements: 300
+Configuration file: config.json
+
+DISTRIBUTION BY LAYER:
+----------------------
+INNER-CORE (RTIC): 11 elements
+REFLECTOR (RTRR): 12 elements
+PEERING (RTPR): 9 elements
+EDGE (RTED): 36 elements
+METRO (SWAC): 232 elements
+
+GEOGRAPHIC DISTRIBUTION:
+------------------------
+Regions:
+  Nordeste: 95 elements
+  Norte: 30 elements
+  Sudeste: 136 elements
+  Centro-Oeste: 31 elements
+  Sul: 40 elements
+
+States (UF) with most elements:
+  SP: 51 elements
+  MG: 33 elements
+  RJ: 27 elements
+  ES: 25 elements
+  CE: 18 elements
+
+GENERATED CONNECTIONS:
+----------------------
+Total connections: 470
+Types (approximate):
+  INNER-CORE (Rings + Redundancy): 233
+  REFLECTOR to CORE: 30
+  PEERING to CORE: 20
+  EDGE (Pairs + to CORE): 187
+  METRO (Rings + to EDGE): 339
+
+GENERATED FILES:
+----------------
+1. elements.csv: 332 records
+2. connections.csv: 470 records
+3. locations.csv: 332 records
+
+Output directory: TOPOLOGY_300_20260307003634
+
+🔗 Repository - Follow on GitHub for new versions and updates
+
+Generate topologies dynamically
+https://github.com/flashbsb/network-topology-generator
+
+Execute massive commands simply and generate connection information between network elements
+https://github.com/flashbsb/network-data-extractor
+
+Dimension backbone topologies for testing:
+https://github.com/flashbsb/backbone-network-topology-generator
